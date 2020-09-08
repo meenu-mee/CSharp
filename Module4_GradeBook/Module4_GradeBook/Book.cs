@@ -16,24 +16,25 @@ namespace Module4_GradeBook
         }
         public void AddGrade(double grade)
         {
-            grades.Add(grade);
+            if (grade<=100 && grade>=0)
+            {
+                grades.Add(grade);
+            }
+            else
+            {
+                //Console.WriteLine("Invalid value");
+                throw new ArgumentException($"Invalid {nameof(grade)}");
+            }
         }
         public Statistics ShowStatistics()
         {
-            var result = new Statistics(); 
-            result.Average = 0.0;
-            result.High = double.MinValue;
-            result.Low = double.MaxValue;
-
+            var result = new Statistics();   
             foreach(var number in grades)
             {
-                result.Average += number;
-                result.High = Math.Max(number, result.High);
-                result.Low = Math.Min(number, result.Low);
+                result.Add(number);                
             }
-            result.Average /= grades.Count;
-
-          return result;
+           
+            return result;
 
         }
 
